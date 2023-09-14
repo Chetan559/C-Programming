@@ -10,41 +10,25 @@ struct triangle
 };
 
 typedef struct triangle triangle;
-// void sort_by_area(triangle* tr, int n) {
-//     float p[n],sum[n];
-//     for(int i=0; i < n;i++){
-//         p[i] = (tr[i].a +tr[i].b + tr[i].c)/2;
-//         sum[i] = sqrt(p[i]*(p[i]-tr[i].a)*(p[i]-tr[i].b)*(p[i]-tr[i].c));
-//     }
-//     for(int i=0;i<n;i++){
-//         float temp;
-//         for(int j=i+1; j<n; j++){
-//             if(sum[i]>sum[j]){
-//                 temp=sum[i];
-//                 sum[i]=sum[j];
-//                 sum[j]=temp;
-//                 triangle temp_tri = tr[i];
-//                 tr[i] = tr[j];
-//                 tr[j] = temp_tri;       
-//             }
-//         }
-//     }   
-// }
-float area(triangle tr) {
-    float p = (tr.a+tr.b+tr.c)/2.0;
-    return sqrt(p*(p-tr.a)*(p-tr.b)*(p-tr.c));
-}
 void sort_by_area(triangle* tr, int n) {
-    triangle temp;
-    for (int i=0; i<n; i++) {
-        for (int j=i+1; j<n; j++) {
-            if (area(tr[i])>area(tr[j])) {
-                temp = tr[i];
+    float p[n],sum[n];
+    for(int i=0; i < n;i++){
+        p[i] = (tr[i].a +tr[i].b + tr[i].c)/2.0;
+        sum[i] = sqrt(p[i]*(p[i]-tr[i].a)*(p[i]-tr[i].b)*(p[i]-tr[i].c));
+    }
+    for(int i=0;i<n;i++){
+        float temp;
+        for(int j=i+1; j<n; j++){
+            if(sum[i]>sum[j]){
+                temp=sum[i];
+                sum[i]=sum[j];
+                sum[j]=temp;
+                triangle temp_tri = tr[i];
                 tr[i] = tr[j];
-                tr[j] = temp;
+                tr[j] = temp_tri;       
             }
         }
-    }
+    }   
 }
 int main()
 {
